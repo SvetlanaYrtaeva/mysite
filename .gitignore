@@ -1,11 +1,9 @@
+staticfiles/
+media/
 __pycache__/
 *.pyc
-venv/
-.venv/
-.idea/
-.DS_Store
-db.sqlite3
 .env
-.ssh/
-id_rsa
-id_rsa.pub
+.venv/
+venv/
+.idea/
+db.sqlite3
