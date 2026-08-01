@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная - Магазин{% endblock %}
+
+{% block header %}
+    Интернет-магазин электроники
+{% endblock %}
+
+{% block content %}
+    <h2>Доступные страницы:</h2>
+
+    <ul style="list-style: none; padding: 0;">
+        <li style="margin: 15px 0;">
+            <a href="{% url 'products_list' %}" style="font-size: 18px; color: #2c5aa0;">
+                Список продуктов →
+            </a>
+        </li>
+        <li style="margin: 15px 0;">
+            <a href="{% url 'orders_list' %}" style="font-size: 18px; color: #2c5aa0;">
+                Список заказов →
+            </a>
+        </li>
+        <li style="margin: 15px 0;">
+            <a href="{% url 'upload_file' %}" style="font-size: 18px; color: #2c5aa0;">
+                Загрузка файла (макс. 1 МБ) →
+            </a>
+        </li>
+        <li style="margin: 15px 0;">
+            <a href="{% url 'product_create' %}" style="font-size: 18px; color: #2c5aa0;">
+                Создать продукт →
+            </a>
+        </li>
+        <li style="margin: 15px 0;">
+            <a href="{% url 'order_create' %}" style="font-size: 18px; color: #2c5aa0;">
+                Создать заказ →
+            </a>
+        </li>
+    </ul>
+
+    <hr>
+
+    <p style="color: #666;">
+        Всего продуктов: <strong>{{ products_count }}</strong>
+    </p>
+    <p style="color: #666;">
+        Всего заказов: <strong>{{ orders_count }}</strong>
+    </p>
+{% endblock %}

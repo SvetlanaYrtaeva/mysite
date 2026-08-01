@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Каталог товаров{% endblock %}
+
+{% block content %}
+    <h1>Каталог товаров</h1>
+
+    {% if products %}
+        <p>Всего товаров: {{ products.count }}</p>
+        <ul>
+            {% for product in products %}
+                {% if not product.archived %}
+                    <li>
+                        <strong>{{ product.name }}</strong>
+                        — {{ product.price }} руб.
+                        {% if product.quantity > 0 %}
+                            (в наличии: {{ product.quantity }} шт.)
+                        {% else %}
+                            (нет в наличии)
+                        {% endif %}
+
+                        {% if product.description %}
+                            <br><small>{{ product.description }}</small>
+                        {% endif %}
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Товаров пока нет.</p>
+    {% endif %}
+{% endblock %}

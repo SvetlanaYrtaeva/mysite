@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>О себе</h1>
+  {% if profile.avatar %}
+    <img src="{{ profile.avatar.url }}" alt="Avatar" width="150">
+  {% else %}
+    <p>Аватарка не установлена.</p>
+  {% endif %}
+  <p>Пользователь: {{ profile.user.username }}</p>
+
+  {% if user.is_staff or user == profile.user %}
+    <a href="{% url 'accounts:profile_update' profile.pk %}">Изменить свой аватар</a>
+  {% endif %}
+{% endblock %}

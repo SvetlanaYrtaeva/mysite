@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Архивация продукта{% endblock %}
+
+{% block content %}
+<h1>Архивация продукта</h1>
+
+<p>Вы уверены, что хотите архивировать продукт "{{ product.name }}"?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Да, архивировать</button>
+    <a href="{% url 'product_detail' product.pk %}">Отмена</a>
+</form>
+{% endblock %}

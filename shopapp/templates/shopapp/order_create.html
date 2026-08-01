@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Создать заказ - Магазин{% endblock %}
+
+{% block header %}
+    Создать новый заказ
+{% endblock %}
+
+{% block content %}
+    <a href="{% url 'orders_list' %}" style="color: #666;">← На список заказов</a>
+
+    <h2>Форма создания заказа:</h2>
+
+    {% if form.errors %}
+        <div style="color: red; background: #ffe0e0; padding: 15px; margin: 10px 0;">
+            <h3>Ошибки:</h3>
+            {% for field in form.errors %}
+                <p><strong>{{ field }}:</strong> {{ form.errors.field|join:", " }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if order_created %}
+        <div style="color: green; background: #e0ffe0; padding: 15px; margin: 10px 0;">
+            Заказ #{{ order_created }} успешно создан!
+        </div>
+    {% endif %}
+
+    <form method="post" style="margin: 20px 0;">
+        {% csrf_token %}
+
+        <div style="margin: 15px 0;">
+            <label for="{{ form.user.id_for_label }}" style="font-weight: bold;">
+                {{ form.user.label }}:
+            </label>
+            {{ form.user }}
+        </div>
+
+        <div style="margin: 15px 0;">
+            <label for="{{ form.customer_address.id_for_label }}" style="font-weight: bold;">
+                {{ form.customer_address.label }}:
+            </label>
+            {{ form.customer_address }}
+        </div>
+
+        <div style="margin: 15px 0;">
+            <label for="{{ form.notes.id_for_label }}" style="font-weight: bold;">
+                {{ form.notes.label }}:
+            </label>
+            {{ form.notes }}
+        </div>
+
+        <div style="margin: 15px 0;">
+            <label style="font-weight: bold;">
+                {{ form.products.label }}:
+            </label>
+            {{ form.products }}
+        </div>
+
+        <button type="submit" style="
+            padding: 10px 20px;
+            background: #2c5aa0;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        ">
+            Создать заказ
+        </button>
+    </form>
+{% endblock %}

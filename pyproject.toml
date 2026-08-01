@@ -1,0 +1,21 @@
+[project]
+name = "mysite"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Yurta", email = "vanskovas@mail.ru"}
+]
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "django (>=5.2,<6.0)",
+    "gunicorn (>=26.0.0,<27.0.0)",
+    "whitenoise (>=6.12.0,<7.0.0)",
+    "psycopg2-binary (>=2.9.12,<3.0.0)",
+    "djangorestframework (>=3.14.0,<4.0.0)",
+    "django-filter (>=26.1,<27.0)",
+    "pillow (>=12.3.0,<13.0.0)"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Детали продукта{% endblock %}
+
+{% block content %}
+<h1>{{ product.name }}</h1>
+
+<p>{{ product.description }}</p>
+<p>Цена: {{ product.price }}</p>
+<p>Количество: {{ product.quantity }}</p>
+
+<a href="{% url 'product_list' %}">Назад к списку</a>
+<a href="{% url 'product_update' product.pk %}">Редактировать</a>
+<a href="{% url 'product_archive' product.pk %}">Архивировать</a>
+{% endblock %}

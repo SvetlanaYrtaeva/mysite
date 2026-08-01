@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Детали заказа{% endblock %}
+
+{% block content %}
+<h1>Заказ #{{ order.pk }}</h1>
+
+<p>Пользователь: {{ order.user }}</p>
+<p>Адрес: {{ order.customer_address }}</p>
+<p>Заметки: {{ order.notes }}</p>
+
+<p>
+    Продукты:
+    {% for product in order.products.all %}
+        {{ product.name }}{% if not forloop.last %}, {% endif %}
+    {% empty %}
+        нет
+    {% endfor %}
+</p>
+
+<a href="{% url 'shopapp:order_list' %}">Назад к списку</a>
+{% endblock %}

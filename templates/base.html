@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Мой сайт{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        nav {
+            background-color: #f5f5f5;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #333;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .api-links {
+            color: #007bff;
+        }
+
+        /* Стили, чтобы кнопка выглядела как ссылка */
+        button.logout-btn {
+            background: none;
+            border: none;
+            color: #333;
+            cursor: pointer;
+            text-decoration: none;
+            margin-right: 15px;
+            font-size: inherit;
+            line-height: inherit;
+        }
+        button.logout-btn:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Главная</a> |
+        <a href="/api/products/">API: Товары</a> |
+        <a href="/api/orders/">API: Заказы</a> |
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'accounts:about_me' %}">О себе</a> |
+
+            <form action="{% url 'accounts:logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">Выход ({{ user.username }})</button>
+            </form>
+        {% else %}
+            <a href="{% url 'accounts:login' %}">Вход</a>
+        {% endif %}
+    </nav>
+
+    {% block content %}{% endblock %}
+</body>
+</html>

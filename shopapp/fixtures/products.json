@@ -1,0 +1,38 @@
+[
+{
+  "model": "shopapp.product",
+  "pk": 1,
+  "fields": {
+    "name": "Хлеб",
+    "description": "",
+    "price": "50.00",
+    "quantity": 5,
+    "archived": false,
+    "created_by": 1
+  }
+},
+{
+  "model": "shopapp.product",
+  "pk": 2,
+  "fields": {
+    "name": "Молоко",
+    "description": "",
+    "price": "100.00",
+    "quantity": 3,
+    "archived": true,
+    "created_by": 1
+  }
+},
+{
+  "model": "shopapp.product",
+  "pk": 3,
+  "fields": {
+    "name": "Кефир",
+    "description": "",
+    "price": "0.30",
+    "quantity": 4,
+    "archived": false,
+    "created_by": 2
+  }
+}
+]

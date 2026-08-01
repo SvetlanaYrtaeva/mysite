@@ -1,0 +1,17 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<h1>Импорт заказов из CSV</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>
+        Загрузите CSV-файл. Формат строки: user_id,customer_address,notes,product_ids (через запятую)<br>
+        Пример: 1,ул. Пушкина 10,доставка,1,2
+    </p>
+    {{ form.non_field_errors }}
+    <div>
+        {{ form.file.label_tag }} {{ form.file }}
+    </div>
+    <button type="submit" class="button">Загрузить</button>
+</form>
+{% endblock %}

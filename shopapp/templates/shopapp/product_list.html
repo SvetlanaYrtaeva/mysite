@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Список товаров{% endblock %}
+
+{% block content %}
+<h2>Список товаров</h2>
+
+{% if perms.shopapp.add_product %}
+  <p>
+    <a class="btn" href="{% url 'product_create' %}">Создать продукт</a>
+  </p>
+{% endif %}
+
+{% for product in products %}
+  <div class="card">
+    <h3>
+      <a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a>
+    </h3>
+    <p>Цена: {{ product.price }}</p>
+    <p>Количество: {{ product.quantity }}</p>
+    <p>Автор: {{ product.created_by }}</p>
+  </div>
+{% empty %}
+  <p>Товаров пока нет.</p>
+{% endfor %}
+{% endblock %}
