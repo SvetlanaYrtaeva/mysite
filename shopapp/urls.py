@@ -6,6 +6,7 @@ from .views import (
     ProductDetailView, UserOrdersListView, user_orders_export,  # <-- добавили эти два
 )
 
+app_name = 'shopapp'
 router = DefaultRouter()
 router.register(r"products", ProductViewSet)
 router.register(r"orders", OrderViewSet)

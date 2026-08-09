@@ -1,21 +1,42 @@
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: mysite_web
+
     ports:
       - "8000:8000"
+
     restart: always
+
     volumes:
       - .:/app
+      - sqlite_data:/app/data
+      - media_data:/app/media
+      - static_data:/app/staticfiles
+
     environment:
-      - DJANGO_DEBUG=1
-      - DJANGO_SECRET_KEY=supersecretkeyforpractice
-      - DJANGO_ALLOWED_HOSTS=*
-      - PYTHONUNBUFFERED=1
+      DJANGO_DEBUG: "1"
+      DJANGO_SECRET_KEY: "dev-secret-key-change-me"
+      DJANGO_ALLOWED_HOSTS: "*"
+
     command:
       - gunicorn
       - mysite.wsgi:application
-      - --bind=0.0.0.0:8000
-      - --workers=2
-      - --timeout=120
-      - --access-logfile=-
-      - --error-logfile=-
+      - --bind
+      - 0.0.0.0:8000
+      - --workers
+      - "2"
+      - --timeout
+      - "120"
+      - --access-logfile
+      - "-"
+      - --error-logfile
+      - "-"
+
+volumes:
+  sqlite_data:
+  media_data:
+  static_data:

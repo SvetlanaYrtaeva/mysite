@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 
-
 {% block title %}Форма заказа{% endblock %}
 
 {% block content %}
@@ -8,9 +7,28 @@
 
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Сохранить</button>
+
+    {{ form.non_field_errors }}
+
+    {% for field in form %}
+        <p>
+            {{ field.label_tag }}
+            {{ field }}
+
+            {% for error in field.errors %}
+                <span style="color: red;">
+                    {{ error }}
+                </span>
+            {% endfor %}
+        </p>
+    {% endfor %}
+
+    <button type="submit">
+        Сохранить
+    </button>
 </form>
 
-<a href="{% url 'order_list' %}">Назад к списку</a>
+<a href="{% url 'shopapp:order_list' %}">
+    Назад к списку
+</a>
 {% endblock %}

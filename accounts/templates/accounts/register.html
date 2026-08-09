@@ -1,16 +1,39 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Регистрация</title>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
 </head>
 <body>
-  <h1>Регистрация</h1>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Зарегистрироваться</button>
-  </form>
-  <p><a href="{% url 'login' %}">Войти</a></p>
+    <h1>Регистрация</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        {% for field in form %}
+            <p>
+                {{ field.label_tag }}
+                {{ field }}
+
+                {% for error in field.errors %}
+                    <span style="color: red;">
+                        {{ error }}
+                    </span>
+                {% endfor %}
+            </p>
+        {% endfor %}
+
+        <button type="submit">
+            Зарегистрироваться
+        </button>
+    </form>
+
+    <p>
+        <a href="{% url 'accounts:login' %}">
+            Уже есть аккаунт? Войти
+        </a>
+    </p>
 </body>
 </html>

@@ -1,16 +1,27 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}Заказы{% endblock %}
+{% block title %}Список заказов{% endblock %}
 
 {% block content %}
-<h2>Заказы</h2>
+<h1>Список заказов</h1>
 
-{% for order in orders %}
-  <div class="card">
-    <p>Заказ #{{ order.pk }}</p>
-    <a href="{% url 'shopapp:order_detail' pk=order.pk %}" class="btn">Подробнее</a>
-  </div>
-{% empty %}
-  <p>Заказов пока нет.</p>
-{% endfor %}
+{% if orders %}
+    <ul>
+        {% for order in orders %}
+            <li>
+                <a href="{% url 'shopapp:order_detail' order.pk %}">
+                    Заказ №{{ order.pk }}
+                </a>
+
+                <br>
+
+                Пользователь: {{ order.user.username }}
+                <br>
+                Адрес: {{ order.customer_address }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Заказов пока нет.</p>
+{% endif %}
 {% endblock %}

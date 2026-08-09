@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Вход</title>
+    <meta charset="UTF-8">
+    <title>Вход</title>
 </head>
 <body>
-  <h1>Вход</h1>
+    <h1>Вход</h1>
 
-  {% if form.errors %}
-    <p style="color: red; font-weight: bold;">
-      Неверный логин или пароль. Попробуйте ещё раз.
+    {% if form.errors %}
+        <div style="color: red;">
+            Неверный логин или пароль.
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+        {{ form.as_p }}
+
+        <button type="submit">
+            Войти
+        </button>
+    </form>
+
+    <p>
+        <a href="{% url 'accounts:register' %}">
+            Регистрация
+        </a>
     </p>
-  {% endif %}
-
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Войти</button>
-  </form>
-
-  <p><a href="{% url 'accounts:register' %}">Регистрация</a></p>
 </body>
 </html>

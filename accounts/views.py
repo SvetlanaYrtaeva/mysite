@@ -1,40 +1,66 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import UpdateView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.models import User
-from .models import Profile
-from django.views.generic.edit import CreateView
-from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
+from django.views.generic import CreateView, UpdateView
+
+from .forms import RegisterForm
+from .models import Profile
+
 
 class RegisterView(CreateView):
-    form_class = UserCreationForm
+    form_class = RegisterForm
     template_name = 'accounts/register.html'
-    success_url = reverse_lazy('shopapp:home')
+    success_url = reverse_lazy('accounts:login')
 
 
 @login_required
 def about_me(request):
-    profile = get_object_or_404(Profile, user=request.user)
-    return render(request, 'accounts/about_me.html', {'profile': profile})
+    profile = get_object_or_404(
+        Profile,
+        user=request.user
+    )
+
+    return render(
+        request,
+        'accounts/about_me.html',
+        {'profile': profile}
+    )
+
 
 @login_required
 def user_list(request):
-    users = User.objects.all()
-    return render(request, 'accounts/user_list.html', {'users': users})
+    users = User.objects.all().order_by('username')
+
+    return render(
+        request,
+        'accounts/user_list.html',
+        {'users': users}
+    )
+
 
 @login_required
 def user_detail(request, pk):
-    user = get_object_or_404(User, pk=pk)
-    profile = user.profile
-    can_edit = request.user.is_staff or request.user == user
-    return render(request, 'accounts/user_detail.html', {
-        'user': user,
-        'profile': profile,
-        'can_edit': can_edit
-    })
+    selected_user = get_object_or_404(User, pk=pk)
+    profile = selected_user.profile
+
+    can_edit = (
+        request.user.is_staff
+        or request.user == selected_user
+    )
+
+    return render(
+        request,
+        'accounts/user_detail.html',
+        {
+            'selected_user': selected_user,
+            'profile': profile,
+            'can_edit': can_edit,
+        }
+    )
+
 
 class AboutMeView(LoginRequiredMixin, UpdateView):
     model = Profile
@@ -46,14 +72,22 @@ class AboutMeView(LoginRequiredMixin, UpdateView):
         return self.request.user.profile
 
 
-class ProfileUpdateView(UserPassesTestMixin, UpdateView):
+class ProfileUpdateView(
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+    UpdateView
+):
     model = Profile
     fields = ['avatar']
     template_name = 'accounts/profile_form.html'
 
     def test_func(self):
         profile = self.get_object()
-        return self.request.user.is_staff or self.request.user == profile.user
+
+        return (
+            self.request.user.is_staff
+            or self.request.user == profile.user
+        )
 
     def get_success_url(self):
         return reverse_lazy('accounts:about_me')
