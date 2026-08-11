@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    # Включите, если файл shopapp/middleware.py существует
+    # Убедитесь, что этот файл существует
     'shopapp.middleware.ThrottlingMiddleware',
 ]
 
@@ -61,9 +61,7 @@ ROOT_URLCONF = 'mysite.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': (
-            'django.template.backends.django.DjangoTemplates'
-        ),
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / 'templates',
         ],

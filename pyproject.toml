@@ -1,10 +1,7 @@
 [project]
 name = "mysite"
 version = "0.1.0"
-description = ""
-authors = [
-    {name = "Yurta", email = "vanskovas@mail.ru"}
-]
+description = "Django project for practical work 20.7"
 requires-python = ">=3.11,<3.12"
 dependencies = [
     "django (>=5.2,<6.0)",
